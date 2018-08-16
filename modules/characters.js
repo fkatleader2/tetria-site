@@ -1,4 +1,4 @@
-tetresse.modules.classes = {
+tetresse.modules.characters = {
     modes: ["warrior", "tank", "juggernaut", "healer", "mage"],
     setup() {
         this.modes.forEach(function(label) {
@@ -57,7 +57,7 @@ tetresse.modules.classes = {
         sources: {
             warrior: {
                 abilities: {
-                    ultimate: {src: "imgs/classes/focus.jpg"},
+                    ultimate: {src: "imgs/characters/focus.jpg"},
                     passive: {color: "blue"},
                 }
             },
