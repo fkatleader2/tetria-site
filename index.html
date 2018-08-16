@@ -1,0 +1,34 @@
+<head>
+    <title>Tetresse 3.0</title>
+    <script src="modules/jquery.js"></script>
+    <script src="tetresse.js"></script>
+    <script src="modules/classes.js"></script>
+    <script src="modules/graphics.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/tetresse.css">
+</head>
+<body onload="setup()">
+    <tetresse class="" style="width: 50%"></tetresse>
+    <div style="height: 800px; display:inline-block;position:absolute;top:8px;left: 50%;padding:10px;">
+        mode:<br>
+        <select id="mode" onchange="start(this.value);this.blur()">
+            <option value="warrior" selected="true">warrior</option>
+            <option value="tank">tank</option>
+            <option value="juggernaut">juggernaut</option>
+            <option value="healer">healer</option>
+            <option value="mage">mage</option>
+        </select>
+    </div>
+    <script>
+        function setup() {
+            tetresse.setup();
+            start();
+        };
+        var game; function start(mode = "warrior") {
+            if (game != null) tetresse.cleanup(game);
+            game = tetresse.create(undefined, mode);
+            window.onresize = function() {
+                tetresse.modules.graphics.game.resize(game);
+            };
+        }
+    </script>
+</body>
