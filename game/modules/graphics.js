@@ -389,7 +389,7 @@ tetresse.modules.graphics = {
             var graphics = game.modules.graphics;
             var components = tetresse.modules.graphics.game.components;
 
-            var componentsList = tetresse.get("s.graphicsComponents", game);
+            var componentsList = tetresse.get(game.state.spectating ? "s.spectatorGraphicsComponents" : "s.graphicsComponents", game);
 
             componentsList.forEach(function(label) {
                 if (components[label] == null) { tetresse.utils.error("invalid graphics component: " + label); return; }
@@ -421,31 +421,53 @@ tetresse.modules.graphics = {
         cleanup(game) {
             game.div.parentNode.removeChild(game.div);
         },
-        resize(game) {
+        resize(game, n) {
             var graphics = game.modules.graphics;
-
-            // update canvas widths
-            graphics.width = game.div.clientWidth;
-            graphics.height = game.div.clientHeight;
-            for (var canvas in graphics.canvases) {
-            graphics.canvases[canvas].width = graphics.width;
-            graphics.canvases[canvas].height = graphics.height;
-            }
-
-            // update n
             var gridDimensions = tetresse.utils.grid.getTotals(graphics.grid);
-            if (gridDimensions.w / gridDimensions.h > graphics.width / graphics.height) { // width is the deciding factor
-            graphics.n = Math.floor(graphics.width / gridDimensions.w);
-            if (graphics.n / 2 != Math.floor(graphics.n / 2) && graphics.n != 1) graphics.n--;
-            } else { // height is deciding factor
-            graphics.n = Math.floor(graphics.height / gridDimensions.h);
-            if (graphics.n / 2 != Math.floor(graphics.n / 2) && graphics.n != 1) graphics.n--;
+
+            if (n == null) {
+                // update canvas widths
+                game.div.style.width = "100%";
+                game.div.style.height = "100%";
+                if (typeof window.getComputedStyle !== "undefined") {
+                    graphics.width = parseInt(window.getComputedStyle(game.div, null).getPropertyValue('width'));
+                    graphics.height = parseInt(window.getComputedStyle(game.div, null).getPropertyValue('height'));
+                } else {
+                    tetresse.utils.error("[warning] browser does not support window.getComputedStyle");
+                    graphics.width = game.div.clientWidth;
+                    graphics.height = game.div.clientHeight;
+                }
+
+                for (var canvas in graphics.canvases) {
+                    graphics.canvases[canvas].width = graphics.width;
+                    graphics.canvases[canvas].height = graphics.height;
+                }
+
+                // update n
+                if (gridDimensions.w / gridDimensions.h > graphics.width / graphics.height) { // width is the deciding factor
+                    graphics.n = Math.floor(graphics.width / gridDimensions.w);
+                    if (graphics.n / 2 != Math.floor(graphics.n / 2) && graphics.n != 1) graphics.n--;
+                } else { // height is deciding factor
+                    graphics.n = Math.floor(graphics.height / gridDimensions.h);
+                    if (graphics.n / 2 != Math.floor(graphics.n / 2) && graphics.n != 1) graphics.n--;
+                }
+                if (graphics.n == 0) graphics.n = 1;
+            } else { graphics.n = n; }
+
+            // shrink canvas and game div to fit board
+            graphics.width = graphics.n * gridDimensions.w;
+            graphics.height = graphics.n * gridDimensions.h;
+            game.div.style.width = graphics.width;
+            game.div.style.height = graphics.height;
+            for (canvas in graphics.canvases) {
+                graphics.canvases[canvas].width = graphics.width;
+                graphics.canvases[canvas].height = graphics.height;
             }
-            if (graphics.n == 0) graphics.n = 1;
-            this.update(game);
+
+            this.update(game, true);
         },
         update(game) {
-            tetresse.get("s.graphicsComponents", game).forEach(function(label) {
+            tetresse.get(game.state.spectating ? "s.spectatorGraphicsComponents" : "s.graphicsComponents", game).forEach(function(label) {
                 var comps = tetresse.modules.graphics.game.components;
                 if (comps[label] != null && comps[label].update != null)
                     comps[label].update(game);
@@ -468,9 +490,16 @@ tetresse.modules.graphics = {
                     }
                     this.piece(game);
                 },
+                setup(game) {
+                    game.modules.graphics.components.board.prev = [];
+                    tetresse.on("graphicsBoard", this.update.bind(this), game, "graphicsModuleBoard", 50, game.listeners);
+                    tetresse.on("graphicsPiece", this.piece.bind(this), game, "graphicsModulePiece", 50, game.listeners);
+                },
                 piece(game) {
-                    while (this.prev.length != 0) {
-                        var ele = this.prev.pop();
+                    var graphics = game.modules.graphics;
+                    var prev = graphics.components.board.prev;
+                    while (prev.length != 0) {
+                        var ele = prev.pop();
                         this.tile(game, ele.r, ele.c);
                     }
                     var cur = game.cur.layout;
@@ -480,14 +509,14 @@ tetresse.modules.graphics = {
                         for (var r = 0; r < game.cur.layout.length; r++)
                             for (var c = 0; c < game.cur.layout[0].length; c++)
                                 if (game.cur.layout[r][c] == 1) {
-                                    this.prev.push({r: r + offset, c: c + game.cur.loc.x});
+                                    prev.push({r: r + offset, c: c + game.cur.loc.x});
                                     this.tile(game, r + offset, c + game.cur.loc.x, "p");
                                 }
                     }
                     for (var r = 0; r < game.cur.layout.length; r++)
                         for (var c = 0; c < game.cur.layout[0].length; c++)
                             if (game.cur.layout[r][c] == 1) {
-                                this.prev.push({r: r + game.cur.loc.y, c: c + game.cur.loc.x});
+                                prev.push({r: r + game.cur.loc.y, c: c + game.cur.loc.x});
                                 this.tile(game, r + game.cur.loc.y, c + game.cur.loc.x, game.cur.piece);
                             }
                 },
@@ -531,10 +560,13 @@ tetresse.modules.graphics = {
                     area = {x: loc.x + border + offset, y: loc.y + this.yN + border + offsetY};
 
                     tetresse.modules.graphics.components.piece(game, {x: area.x, y: area.y, s: 1}, piece);
+                },
+                setup(game) {
+                    tetresse.on("graphicsHold", this.update.bind(this), game, "graphicsModuleHold", 50, game.listeners);
                 }
             },
             next: {
-                loc: {row: "board", col: {weight: 70, label: "next", n: 5.5}},
+                loc: {row: "board", col: {weight: 70, label: "next", n: 6}},
                 widthN: 6, heightN: 6,
                 yN: 5,
                 update(game) {
@@ -562,6 +594,9 @@ tetresse.modules.graphics = {
                         var a = {x: area.x + offset + border, y: area.y + offsetY + 4 * i + (i != 0 ? 1 : 0)};
                         tetresse.modules.graphics.components.piece(game, {x: a.x, y: a.y, s: 1}, pieces[i]);
                     }
+                },
+                setup(game) {
+                    tetresse.on("graphicsNext", this.update.bind(this), game, "graphicsModuleNext", 50, game.listeners);
                 }
             },
             abilities: {

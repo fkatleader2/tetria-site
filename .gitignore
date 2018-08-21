@@ -1,0 +1,4 @@
+
+site/scripts/socket.io.js
+site/scripts/auth.js
+site/scripts/amazon-cognito-identity.min.js

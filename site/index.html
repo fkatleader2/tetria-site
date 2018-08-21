@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Tetria</title>
+    <link rel="stylesheet" type="text/css" href="site/css/style.css">
+    <script src="site/scripts/jquery.js"></script>
+    <script src="site/scripts/tetria.js"></script>
+    <script src="site/scripts/amazon-cognito-identity.min.js"></script>
+    <script src="site/scripts/auth.js"></script>
+    <!-- <script src="scripts/socket.io.js"></script> -->
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div id="navbar-hamburger" class="hamburger">
+                <div class="hamburger-bar1"></div>
+                <div class="hamburger-bar2"></div>
+                <div class="hamburger-bar3"></div>
+            </div>
+            <div id="navbar-title" class="mobile">
+                Welcome
+            </div>
+            <ul class="mobile-hide">
+                <li><a href="#" id="navbar-news">News</a></li>
+                <li><a href="#" id="navbar-shop">Shop</a></li>
+                <li><a href="#" id="navbar-about">About</a></li>
+                <li><a href="#" id="navbar-settings" class="mobile hide">Settings</a></li>
+                <li><a href="#" id="navbar-login" class="mobile">Login</a></li>
+                <li><a href="#" id="navbar-logout" class="mobile hide">Logout</a></li>
+            </ul>
+        </div>
+        <div id="content-area" style="background:green">
+            <div id="content-welcome">welcome</div>
+            <div id="content-news" class="hide">news</div>
+            <div id="content-shop" class="hide">shop</div>
+            <div id="content-about" class="hide">about</div>
+            <div id="content-profile" class="hide">profile</div>
+            <div id="content-settings" class="hide">settings</div>
+            <div id="content-login" class="hide">login</div>
+            <div id="content-logout" class="hide">logout</div>
+        </div>
+        <div class="profbar">
+            <div class="left not-mobile" id="profbar-login">
+                <a href="#">Logout</a>
+                <a href="#" style="display: none;">Login</a>
+            </div>
+            <div class="left" id="profbar-profile-container" >
+                <a href="#">fkatleader2 | 1,234 points</a>
+            </div>
+            <div class="right">
+                <a id="profbar-settings" href="#" class="not-mobile">Settings</a>
+                <button id="play-tetria" class="play">Play</button>
+            </div>
+        </div>
+    </div>
+</body>

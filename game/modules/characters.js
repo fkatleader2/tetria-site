@@ -2,19 +2,21 @@ tetresse.modules.characters = {
     modes: ["warrior", "tank", "juggernaut", "healer", "mage"],
     setup() {
         this.modes.forEach(function(label) {
-            tetresse.modes[label] = this.classes[label];
+            tetresse.modes[label] = this.characters[label];
         }.bind(this));
     },
-    classes: {
+    characters: {
         warrior: {
             settings: {
                 graphicsComponents: ["board", "background", "hold", "next", "abilities", "lineclear", "incomming"],
+                spectatorGraphicsComponents: ["board", "background", "lineclear", "incomming"],
                 abilities: [{type: "passive", name: "warriorPassive"}, {type: "ultimate", name: "focus"}],
             }
         },
         tank: {
             settings: {
                 graphicsComponents: ["board", "background", "hold", "next", "abilities", "lineclear", "incomming", "mana"],
+                spectatorGraphicsComponents: ["board", "background", "lineclear", "incomming", "mana"],
                 abilities: [
                     {type: "passive", name: "tankPassive"}, 
                     {type: "ability1", name: "tankAbility1"},
@@ -25,6 +27,7 @@ tetresse.modules.characters = {
         juggernaut: {
             settings: {
                 graphicsComponents: ["board", "background", "hold", "next", "abilities", "incomming"],
+                spectatorGraphicsComponents: ["board", "background", "lineclear", "incomming"],
                 abilities: [{type: "passive", name: "juggernautPassive"}, {type: "ultimate", name: "juggernautUltimate"}],
                 lineClearDelay: 0
             }
@@ -32,6 +35,7 @@ tetresse.modules.characters = {
         healer: {
             settings: {
                 graphicsComponents: ["board", "background", "hold", "next", "abilities", "lineclear", "incomming", "mana"],
+                spectatorGraphicsComponents: ["board", "background", "lineclear", "incomming", "mana"],
                 abilities: [
                     {type: "passive", name: "healerPassive"}, 
                     {type: "ability1", name: "healerAbility1"},
@@ -44,6 +48,7 @@ tetresse.modules.characters = {
         mage: {
             settings: {
                 graphicsComponents: ["board", "background", "hold", "next", "abilities", "lineclear", "mana"],
+                spectatorGraphicsComponents: ["board", "background", "lineclear", "incomming", "mana"],
                 abilities: [
                     {type: "passive", name: "magePassive"}, 
                     {type: "ability1", name: "mageAbility1"},

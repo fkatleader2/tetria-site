@@ -24,11 +24,12 @@ const tetresse = {
             }
         });
     },
-    create(div = document.createElement("div"), mode = "default") { // returns created game object
-        var game = tetresse.get("generateGame")({div: div, mode: mode});
-
+    create(div = document.createElement("div"), mode = "default", args = {}) { // returns created game object
+        args.div = div;
+        args.mode = mode;
+        var game = tetresse.get("generateGame")(args);
         div.classList.add("game");
-        div.id = game.id = "game-" + $("tetresse")[0].children.length;
+        if (div.id == "") div.id = game.id = "game-" + $("tetresse")[0].children.length;
         $("tetresse")[0].appendChild(div);
 
         tetresse.get("s.modules", game).forEach(function(label) {
@@ -44,8 +45,11 @@ const tetresse = {
         tetresse.get("setup", game)(game);
 
         tetresse.execute("startGame", null, game.listeners);
-        tetresse.get("enableKeybinds", game)(game);
-        console.log(game);
+        if (!game.state.spectating) {
+            tetresse.get("enableKeybinds", game)(game);
+            game.div.tabIndex = "1";
+        }
+        // console.log(game);
 
         /**
          * objects: board, hold, next, cur
@@ -96,27 +100,30 @@ const tetresse = {
     /**
      * gets data from the mode the game specifies
      * label: string that specifies path to data with splits ".", if first part of path is "a." => "actions.", or "s." => "settings"
-     * game: either string or game object with game.mode specifying mode
+     * game: either string, game object with game.mode specifying mode, or null. if null then the entire struct will be searched
      * struct: structure to search through
+     * pointer: leave object with pointer to the last setting
+     * create: whether to create the label's path as it searches
      */
-    get(label, game = "default", struct = tetresse.modes, pointer = false) {
-        if (game.state != null && game.state.cleanup) tetresse.utils.error("game should be cleaned up");
+    get(label, game = "default", struct = tetresse.modes, pointer = false, create = false) {
+        if (game != null && game.state != null && game.state.cleanup) tetresse.utils.error("game should be cleaned up");
         if (label === undefined || typeof label != "string") { tetresse.utils.error("invalid label type: " + (typeof label)); return; }
-        if (struct == null || game == null) { tetresse.utils.error("neither struct or game can be null"); return; }
-        if (struct["default"] == null) tetresse.utils.error("[warning] struct does not contain default mode");
+        if (struct == null) { tetresse.utils.error("struct can't be null"); return; }
+        if (game != null && struct["default"] == null) tetresse.utils.error("[warning] struct does not contain default mode");
         var getData = function(struct, mode, label) {
-            if (struct[mode] == null) return {error: "struct doesn't contain mode: " + mode};
+            if (mode != null && struct[mode] == null) return {error: "struct doesn't contain mode: " + mode};
             var arr = label.split(".");
             if (pointer) arr.splice(arr.length - 1, 1);
             if (arr.length > 1) { if (arr[0] == "a") arr[0] = "actions"; else if (arr[0] == "s") arr[0] = "settings" }
-            var cur = struct[mode];
+            var cur = mode != null ? struct[mode] : struct;
             arr.forEach(function(lbl) {
                 if (cur == null) return;
+                if (cur[lbl] == null && create) cur[lbl] = {};
                 cur = cur[lbl];
             });
             return {data: cur};
-        }
-        var attempt1 = getData(struct, typeof game == "string" ? game : game.mode, label);
+        };
+        var attempt1 = getData(struct, typeof game == "string" || game == null ? game : game.mode, label);
         if (attempt1 != null && attempt1.data !== undefined) {
             if (attempt1.error == null)
                 return attempt1.data;
@@ -133,9 +140,10 @@ const tetresse = {
                 boardWidth: 10,
                 boardHeight: 40,
                 shownHeight: 20.5,
-                modules: ["graphics", "classes"],
+                modules: ["graphics", "characters", "tetria"], // TODO make it so that games can have uniquely added modules
                 upNext: 5,
                 graphicsComponents: ["board", "background", "hold", "next"],
+                spectatorGraphicsComponents: ["board", "background"],
                 graphicsGhost: true,
                 DAS: 125, // in ms
                 ARR: 16, // in ms
@@ -238,7 +246,8 @@ const tetresse = {
             holdPiece(game, args = {show: true}) {
                 var temp = game.cur.hold;
                 game.cur.hold = game.cur.piece;
-                if (args.show == null || args.show) tetresse.modules.graphics.game.components.hold.update(game);
+                if (args.show == null || args.show)
+                    tetresse.execute("graphicsHold", game.cur.hold, game.listeners);
                 tetresse.get("nextPiece", game)(game, {piece: temp});
             },
             movePiece(game, args = {amount: 0, show: true}) { // args is number of tiles to move (positive right, negative left)
@@ -315,6 +324,8 @@ const tetresse = {
                 }
                 var clearDelayPause = tetresse.get("collapseBoard", game)(game, {delay: args.clearDelay == null ? true : args.clearDelay});
                 if (args.show == null || args.show) {
+                    tetresse.execute("graphicsPiece", game.cur, game.listeners);
+                    tetresse.execute("graphicsBoard", game.board, game.listeners);
                     tetresse.modules.graphics.game.components.board.piece(game);
                     tetresse.modules.graphics.game.components.board.update(game);
                 }
@@ -336,7 +347,7 @@ const tetresse = {
                     return;
                 }
                 game.cur.piece = piece;
-                tetresse.modules.graphics.game.components.next.update(game);
+                tetresse.execute("graphicsNext", game.cur.next, game.listeners);
                 tetresse.get("dropPiece", game)(game);
                 tetresse.execute("nextPiece", true, game.listeners);
             },
@@ -417,8 +428,9 @@ const tetresse = {
                     tetresse.get("gravity", game)(game);
                 }, tetresse.get("s.gravitySpeed", game), game);
             },
-            generateGame(args = {alreadyGenerated: false}) {
-                if (args.alreadyGenerated != null && args.alreadyGenerated) return;
+            // args are settings that will be inserted into game variable (eg: "div": <div> will be in game.div, "state.spectating": true will be in game.state.spectating)
+            generateGame(args, alreadyGenerated = false) { 
+                if (alreadyGenerated != null && alreadyGenerated) return;
                 var board = [];
                 for (var r = 0; r < tetresse.get("s.boardHeight", args.mode); r++) {
                     var tempArr = [];
@@ -428,8 +440,8 @@ const tetresse = {
                 }
                 var game = {
                     board: board,
-                    div: args.div,
-                    mode: args.mode,
+                    div: null,
+                    mode: null,
                     cur: {
                         piece: null,
                         loc: {x: null, y: null},
@@ -446,6 +458,7 @@ const tetresse = {
                         gravity: {loop: null, count: -1, events: ["nextPiece", "movePiece", "sdControl", "rotatePiece"]},
                         pausedKeybinds: false,
                         cleanup: false,
+                        spectating: false,
                     },
                     keyBinds: {
                         left: [37],
@@ -459,8 +472,15 @@ const tetresse = {
                     modules: {},
                     listeners: {},
                 };
+
+                for (var v in args) { // add all args to game
+                    var arr = v.split(".");
+                    var lastPointer = arr[arr.length - 1];
+                    tetresse.get(v, null, game, true, true)[lastPointer] = args[v];
+                }
+
                 var specificMode = tetresse.get("generateGame", game);
-                if (specificMode !== undefined) specificMode({alreadyGenerated: true});
+                if (specificMode !== undefined) specificMode(args, true);
                 return game;
             },
             cleanup(game, alreadyCleaned = false) {
@@ -483,11 +503,11 @@ const tetresse = {
                 tetresse.get("cleanup", game)(game, true);
                 game.state.cleanup = true;
             },
-            enableKeybinds(game, args) { // TODO change pausekeybinds so that they can still register as down
+            enableKeybinds(game, args) {
                 for (var label in game.keyBinds) {
                     game.keyBinds[label].forEach(function(num) {
                         if (tetresse.settings.keyBinds[num] == null) tetresse.settings.keyBinds[num] = {};
-                        tetresse.settings.keyBinds[num][game.id] = {
+                        tetresse.settings.keyBinds[num][game.div.id] = {
                             down: { func: function(args) {
                                     tetresse.get(args.label + "Control", args.game)(args.game, {down: true, delay: true}, args.game.state.pausedKeybinds);
                                 }, args: {game: game, label: label}
@@ -504,17 +524,17 @@ const tetresse = {
                 for (var label in game.keyBinds) {
                     game.keyBinds[label].forEach(function(num) {
                         if (tetresse.settings.keyBinds[num] == null) return;
-                        delete tetresse.settings.keyBinds[num][game.id];
+                        delete tetresse.settings.keyBinds[num][game.div.id];
                     });
                 }
             }
         },
     },
     utils: {
-        error(msg) {
+        error(msg, trace = true) {
             var s = tetresse.settings;
             if (s.showErrorMessages) console.log(msg);
-            if (s.showErrorTrace) console.trace();
+            if (s.showErrorTrace && trace) console.trace();
         },
         getLocToInsert(arr, sortKey, element) { // binary search for location to insert at. arr: [{sortKey: 1}], ele: {sortKey: 2}, inserts before same value
             if (element[sortKey] == null) return arr.length;
@@ -598,7 +618,7 @@ const tetresse = {
                 row = grid.rows[grid.rowLabels[row]];
                 return {x: col.nOffset, y: row.nOffset, w: col.n, h: row.n};
             },
-            getTotals(grid) {
+            getTotals(grid) { // returns {w, h} of totals
                 if (grid == null) { tetresse.utils.error("grid cannot be null"); return; }
                 this.generateLocs(grid);
                 return {w: grid.colsTotal, h: grid.rowsTotal};
