@@ -7,30 +7,31 @@ A live team based game where players compete against each other by stacking tetr
 - [TODO](#TODO)
 - [versions](#versions)
 ---
-### game <a name="game"></a>
+## game <a name="game"></a>
 Uses tetresse 3.0 for actual game mechanics as well as the custom tetria module. Requires players to be logged in (have auth keys) and in an active game on the game server.
 
 **index.html** provides a grid for the 6 player's boards to display and lays out the sidebar which includes current players, messages area, and settings / exit.
 
 **tetria.js** manages the separate games and uses the game server's api to stream with other players.
 
-**[characters.json](#characters-details)** provides character interaction data to clients and servers
+[**characters.json**](#characters-details) provides character interaction data to clients and servers
 ---
-### site <a name="site"></a>
+## site <a name="site"></a>
 Default area users should be in when not playing. Includes user management, eg login / store / profile / setting up games, and general info about the tetria game(s).
 
 **index.html** by default the page just loads news, about, shop, and login. Once user is logged in the page then preloads profile, game lobby. Note that some areas do not fully load until they are needed (to prevent large downloads).
 
 **app.js** manages the page's naviation and general functionality. Also provides easy plugins and general utilities for those modules.
 ---
-### TODO <a name="TODO"></a>
+## TODO <a name="TODO"></a>
 - implement captcha for signup / signin
 
 ---
-### versions <a name="versions"></a>
+## versions <a name="versions"></a>
 **3.0** initial beta version of game
 
-### details
+---
+## details
 Further documentation
 
 **characters.json**<a name="characters-details"></a> below is the format a character object takes in characters.json
