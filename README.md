@@ -14,23 +14,21 @@ Uses tetresse 3.0 for actual game mechanics as well as the custom tetria module.
 
 **tetria.js** manages the separate games and uses the game server's api to stream with other players.
 
-[**characters.json**](#characters-details) provides character interaction data to clients and servers
----
+[characters.json](#characters-details) provides character interaction data to clients and servers
+
 ## site <a name="site"></a>
 Default area users should be in when not playing. Includes user management, eg login / store / profile / setting up games, and general info about the tetria game(s).
 
 **index.html** by default the page just loads news, about, shop, and login. Once user is logged in the page then preloads profile, game lobby. Note that some areas do not fully load until they are needed (to prevent large downloads).
 
 **app.js** manages the page's naviation and general functionality. Also provides easy plugins and general utilities for those modules.
----
+
 ## TODO <a name="TODO"></a>
 - implement captcha for signup / signin
 
----
 ## versions <a name="versions"></a>
 **3.0** initial beta version of game
 
----
 ## details
 Further documentation
 
