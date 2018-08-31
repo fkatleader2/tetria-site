@@ -38,17 +38,17 @@ var tetria = {
 
         navbar: {
             init() {
-                $(".navbar ul").on("click", function(e) {
+                $(".navbar ul").on("mouseover", function(e) {
                     var arr = e.target.id.split("-");
                     var name = arr[arr.length - 1];
                     var prevEle = $("#navbar-" + tetria.curPage)[0];
                     var curEle = $("#navbar-" + name)[0];
+                    $(this).hover(function(e){$(this).css("background-color","#ddd")},function(e){$this.css("background-color","#aaa")});
                     if (prevEle != null) prevEle.classList.toggle("active");
                     if (curEle != null) curEle.classList.toggle("active");
                     $("#navbar-title")[0].innerHTML = name.substring(0, 1).toUpperCase() + name.substring(1);
                     tetria.changeContent(name);
                 });
-
             }
         },
 
