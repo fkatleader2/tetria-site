@@ -83,10 +83,6 @@ button.play:hover {
 }
 
 .navbar ul li a:hover {
-    background-color: #c9c9c9;
-}
-
-.navbar ul li a.active {
     background-color: #aaa;
 }
 
