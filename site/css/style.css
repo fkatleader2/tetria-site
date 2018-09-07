@@ -67,32 +67,49 @@ button.play:hover {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    width: 100%;
 }
 
-.navbar ul li {
-    float: none;
-}
-
-.navbar ul li a {
+.navbar ul li>a {
     display: block;
-    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     color: black;
 }
 
-.navbar ul li a:hover {
+.navbar ul li>a:hover {
     background-color: #aaa;
 }
 
-.navbar ul li.right {
-    float: right;
+.navbar ul li>a.active {
+    background-color: #bebebe;
 }
 
 .navbar .hamburger {
     position: absolute;
     left: 0px;
+}
+
+.play-button {
+    display: block;
+    background-color: #c0a6e4;
+    border: none;
+    height: 24px;
+    padding: 5px 40px;
+    margin: 9px 10px 9px 9px;
+    display: inline-block;
+    font-size: 20px;
+    font-family: inherit;
+}
+
+.play-button a {
+    text-decoration: none;
+    color: black;
+}
+
+.play-button:hover {
+    cursor: pointer;
 }
 
 .hamburger {
@@ -108,20 +125,6 @@ button.play:hover {
     background-color: #333;
     margin: 6px 6px;
     transition: 0.4s;
-}
-
-.hamburger.change .hamburger-bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.hamburger.change .hamburger-bar2 {
-    opacity: 0;
-}
-
-.hamburger.change .hamburger-bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
 }
 
 #navbar-title {
@@ -149,8 +152,11 @@ button.play:hover {
     }
 
     /* navbar */
+    .navbar {
+        min-height: 39px;
+    }
+
     .navbar ul {
-        position: absolute;
         background: #ddd;
     }
 
@@ -192,6 +198,11 @@ button.play:hover {
     
     .navbar ul li {
         float: left;
+        margin-right: 3px;
+    }
+
+    .navbar ul li.right {
+        float: right;
     }
 
     /* profbar */

@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="site/css/style.css">
     <script src="site/scripts/jquery.js"></script>
     <script src="site/scripts/tetria.js"></script>
-    <script src="site/scripts/amazon-cognito-identity.min.js"></script>
-    <script src="site/scripts/auth.js"></script>
+    <!-- <script src="site/scripts/amazon-cognito-identity.min.js"></script> -->
+    <!-- <script src="site/scripts/auth.js"></script> -->
     <!-- <script src="scripts/socket.io.js"></script> -->
 </head>
 <body>
@@ -21,12 +21,13 @@
             <div id="navbar-title" class="mobile">
                 Welcome
             </div>
-            <ul class="mobile-hide">
+            <ul class="mobile-hide" id="navbar-list">
+                <li class="mobile-hide"><div class="play-button"><a href="../game/index.html" id="navbar-Play">Play</a></div></li>
                 <li><a href="#" id="navbar-news">News</a></li>
                 <li><a href="#" id="navbar-shop">Shop</a></li>
                 <li><a href="#" id="navbar-about">About</a></li>
                 <li><a href="#" id="navbar-settings" class="mobile hide">Settings</a></li>
-                <li><a href="#" id="navbar-login" class="mobile">Login</a></li>
+                <li class="right"><a href="#" id="navbar-login" class="">Login</a></li>
                 <li><a href="#" id="navbar-logout" class="mobile hide">Logout</a></li>
             </ul>
         </div>
@@ -40,7 +41,7 @@
             <div id="content-login" class="hide">login</div>
             <div id="content-logout" class="hide">logout</div>
         </div>
-        <div class="profbar">
+        <div class="profbar mobile hide">
             <div class="left not-mobile" id="profbar-login">
                 <a href="#">Logout</a>
                 <a href="#" style="display: none;">Login</a>

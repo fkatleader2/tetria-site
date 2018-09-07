@@ -16,9 +16,18 @@ var tetria = {
         newContent = newContent.toLowerCase();
         var prevEle = $("#content-area #content-" + this.curPage)[0];
         var curEle = $("#content-area #content-" + newContent)[0];
+        var prevNav = $("#navbar-" + this.curPage)[0];
+        var curNav = $("#navbar-" + newContent)[0];
         if (prevEle == null || curEle == null) { console.log("Error trying to change content"); if (this.debug) { console.trace() } return; }
         prevEle.classList.toggle("hide");
         curEle.classList.toggle("hide");
+        try {
+            if (prevNav !== undefined)
+                prevNav.classList.toggle("active");
+            curNav.classList.toggle("active");
+        } catch (e) {
+            console.log(e);
+        }
         this.curPage = newContent;
     },
 
@@ -60,23 +69,18 @@ var tetria = {
                 $("#play-tetria").on("click", function (e) {
                     window.location.href = '../game/index.html';
                 });
+
+                $("#navbar-list").on("click", function(e) {
+                    $("#navbar-list")[0].classList.add("mobile-hide");
+                });
             }
         },
 
         hamburger: {
             init() {
-                // on change
-                $(".hamburger").on("click", function (e) {
-                    e.currentTarget.classList.toggle("change");
-                });
                 // navbar hamburger show navbar
                 $("#navbar-hamburger").on("click", function (e) {
                     $(".navbar ul")[0].classList.toggle("mobile-hide");
-                });
-
-                $(".navbar ul").on("click", function (e) {
-                    $(".navbar ul")[0].classList.add("mobile-hide");
-                    $("#navbar-hamburger")[0].classList.remove("change");
                 });
             },
         }
