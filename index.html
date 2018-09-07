@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Tetria</title>
     <link rel="stylesheet" type="text/css" href="site/css/style.css">
+    <link rel="stylesheet" type="text/css" href="site/css/welcome.css">
     <script src="site/scripts/jquery.js"></script>
     <script src="site/scripts/tetria.js"></script>
     <!-- <script src="site/scripts/amazon-cognito-identity.min.js"></script> -->
@@ -22,7 +23,7 @@
                 Welcome
             </div>
             <ul class="mobile-hide" id="navbar-list">
-                <li class="mobile-hide"><div class="play-button"><a href="../game/index.html" id="navbar-Play">Play</a></div></li>
+                <li class="mobile-hide"><div id="play-tetria" class="play-button"><a href="#" id="navbar-Play">Play</a></div></li>
                 <li><a href="#" id="navbar-news">News</a></li>
                 <li><a href="#" id="navbar-shop">Shop</a></li>
                 <li><a href="#" id="navbar-about">About</a></li>
@@ -31,8 +32,10 @@
                 <li><a href="#" id="navbar-logout" class="mobile hide">Logout</a></li>
             </ul>
         </div>
-        <div id="content-area" style="background:green">
-            <div id="content-welcome">welcome</div>
+        <div id="content-area">
+            <div id="content-welcome">
+                <div class="content-title"><div>Welcome to Tetria</div></div>
+            </div>
             <div id="content-news" class="hide">news</div>
             <div id="content-shop" class="hide">shop</div>
             <div id="content-about" class="hide">about</div>

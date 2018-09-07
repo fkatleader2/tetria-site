@@ -134,7 +134,9 @@ button.play:hover {
 }
 
 /* content area */
-
+#content-area {
+    font-family: "Verdana", Helvetica, sans-serif;
+}
 
 /* misc */
 .hide {

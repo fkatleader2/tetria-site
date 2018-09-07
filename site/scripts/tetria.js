@@ -49,6 +49,7 @@ var tetria = {
             init() {
 
                 $(".navbar ul li").on("click", function (e) {
+                    if (e.target.id == "play-tetria" || e.target.id == "navbar-Play") return;
                     var arr = e.target.id.split("-");
                     var name = arr[arr.length - 1];
                     var activeEle = $("#navbar-" + name)[0];
