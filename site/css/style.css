@@ -113,7 +113,6 @@ button.play:hover {
 }
 
 .hamburger {
-    display: inline-block;
     cursor: pointer;
     float: left;
     background: #ddd;
@@ -194,7 +193,6 @@ button.play:hover {
     }
 
     .navbar ul {
-        display: inline-block;
         float: left;
     }
     

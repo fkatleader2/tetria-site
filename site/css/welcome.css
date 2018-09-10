@@ -8,3 +8,37 @@
     font-size: 50px;
     padding: 20px 0;
 }
+#content-welcome {
+    text-align: center !important; 
+    font-size: 18px;
+}
+
+#content-welcome #set img {
+    height: 24%;
+    width: 24%;
+    display: none;
+}
+
+#content-welcome #welcome-scrollbar{
+    position: relative; 
+    border: 1px solid black;
+}
+
+#content-welcome #welcome-scrollbar .scroll-show{
+    display:block;
+}
+
+#content-welcome #welcome-scrollbar .scroll-arrows{
+    height: 100px;
+    width: 100px;;
+}
+
+#content-welcome #welcome-scrollbar div #left{
+    position: absolute ;
+    float: left;
+}
+
+#content-welcome #welcome-scrollbar div #right{
+    position: absolute ;
+    float: right;
+}

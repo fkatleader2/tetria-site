@@ -84,7 +84,13 @@ var tetria = {
                     $(".navbar ul")[0].classList.toggle("mobile-hide");
                 });
             },
-        }
+        },
+
+        welcome: {
+            init(){
+                
+            }
+        },
     },
 
     utils: {
