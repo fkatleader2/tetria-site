@@ -13,12 +13,6 @@
     font-size: 18px;
 }
 
-#content-welcome #set img {
-    height: 24%;
-    width: 24%;
-    display: none;
-}
-
 #content-welcome #welcome-scrollbar{
     position: relative; 
     border: 1px solid black;
@@ -26,26 +20,38 @@
     height: 75%;
 }
 
-#content-welcome #welcome-scrollbar .scroll-show{
-    display:block;
+#content-welcome #welcome-scrollbar .scroll-hide{
+    display: none !important;
+}
+
+#content-welcome #welcome-scrollbar div .scroll-content{
+    display: inline-block; 
+    height: 100px;
+    width: 100px;
 }
 
 #content-welcome #welcome-scrollbar .scroll-arrows{
     height: 100px;
     width: 100px;
-    display:block !important;
+    display: inline-block !important;
 }
 
-#content-welcome #welcome-scrollbar div #left{
+#content-welcome #welcome-scrollbar div #scroll-left{
+    left:0;
     float: left;
 }
 
-#content-welcome #welcome-scrollbar div #right{
+#content-welcome #welcome-scrollbar div #scroll-right{
+    right:0;
     float: right;
-    overflow: hidden;
 }
 
-#content-welcome #welcome-scrollbar div .scroll-content{
-    height: 100px;
-    width: 200px;
+#content-welcome #welcome-scrollbar #set img .scroll-show{
+    height: 10%;
+    width: 10%;
 }
+
+#content-welcome .subtitle{
+    margin: 20px;
+}
+#set{width:100%;}
