@@ -1,17 +1,24 @@
-#content-welcome .content-title {
+/*WELCOME*/
+.content-title {
     display: flex;
     justify-content: center;
 }
 
-#content-welcome .content-title div {
-    display: inline-block;
+.content-title div {
     font-size: 50px;
     padding: 20px 0;
 }
-#content-welcome {
-    text-align: center !important; 
+
+#content-area {
+    font-family: "Verdana", Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center !important;
+    justify-content: center;
     font-size: 18px;
+    margin: auto;
 }
+
+/*WELCOME*/
 
 #content-welcome #welcome-scrollbar{
     position: relative; 
@@ -54,4 +61,6 @@
 #content-welcome .subtitle{
     margin: 20px;
 }
-#set{width:100%;}
+#set{
+    width:100%;
+}

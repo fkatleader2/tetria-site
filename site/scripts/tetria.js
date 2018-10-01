@@ -49,7 +49,7 @@ var tetria = {
 
         navbar: {
             init() {
-
+                console.log(this.curPage);
                 $(".navbar ul li").on("click", function (e) {
                     if (e.target.id == "play-tetria" || e.target.id == "navbar-Play") return;
                     var arr = e.target.id.split("-");
@@ -91,13 +91,11 @@ var tetria = {
         welcome: {
             incContent() {
                 $("#welcome-" + tetria.curscroll).addClass("scroll-hide");
-                console.log(tetria.curscroll);
                 if(tetria.curscroll === 4){tetria.curscroll = 1}else{tetria.curscroll++};
                 $("#welcome-" + tetria.curscroll).removeClass("scroll-hide");
             },
             decContent() {
                 $("#welcome-" + tetria.curscroll).addClass("scroll-hide");
-                console.log(tetria.curscroll);
                 if(tetria.curscroll === 1){tetria.curscroll = 4}else{tetria.curscroll--};
                 $("#welcome-" + tetria.curscroll).removeClass("scroll-hide");
             },
