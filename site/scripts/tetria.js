@@ -1,7 +1,6 @@
 var tetria = {
     modules: {},
     curPage: "welcome",
-    curscroll: 1,
     debug: true,
     /**
      * Call on page load.
@@ -38,7 +37,6 @@ var tetria = {
             this.navbar.init();
             this.url.init();
             this.profbar.init();
-            this.welcome.init();
         },
 
         url: {
@@ -73,7 +71,7 @@ var tetria = {
                     window.location.href = '../game/index.html';
                 });
 
-                $("#navbar-list").on("click", function (e) {
+                $("#navbar-list").on("click", function(e) {
                     $("#navbar-list")[0].classList.add("mobile-hide");
                 });
             }
@@ -89,6 +87,7 @@ var tetria = {
         },
 
         welcome: {
+<<<<<<< HEAD
             incContent() {
                 $("#welcome-" + tetria.curscroll).addClass("scroll-hide");
                 if(tetria.curscroll === 4){tetria.curscroll = 1}else{tetria.curscroll++};
@@ -102,6 +101,10 @@ var tetria = {
             init() {
                 $("#scroll-left").click(this.decContent);
                 $("#scroll-right").click(this.incContent);
+=======
+            init(){
+                
+>>>>>>> parent of e8a446d... Added scrollbar
             }
         },
     },

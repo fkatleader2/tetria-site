@@ -18,43 +18,43 @@
     margin: auto;
 }
 
+<<<<<<< HEAD:site/css/content.css
 /*WELCOME*/
+=======
+#content-welcome #set img {
+    height: 24%;
+    width: 24%;
+    display: none;
+}
+>>>>>>> parent of e8a446d... Added scrollbar:site/css/welcome.css
 
 #content-welcome #welcome-scrollbar{
     position: relative; 
     border: 1px solid black;
     overflow: hidden;
     height: 75%;
-    width: 100%;
 }
 
-#content-welcome #welcome-scrollbar .scroll-hide{
-    display: none !important;
-}
-
-#content-welcome #welcome-scrollbar div .scroll-content{
-    display: inline-block; 
-    height: 100px;
-    width: 100px;
+#content-welcome #welcome-scrollbar .scroll-show{
+    display:block;
 }
 
 #content-welcome #welcome-scrollbar .scroll-arrows{
     height: 100px;
     width: 100px;
-    display: inline-block !important;
-    cursor: pointer;
+    display:block !important;
 }
 
-#content-welcome #welcome-scrollbar div #scroll-left{
-    left:0;
+#content-welcome #welcome-scrollbar div #left{
     float: left;
 }
 
-#content-welcome #welcome-scrollbar div #scroll-right{
-    right:0;
+#content-welcome #welcome-scrollbar div #right{
     float: right;
+    overflow: hidden;
 }
 
+<<<<<<< HEAD:site/css/content.css
 #content-welcome #welcome-scrollbar #set img .scroll-show{
     height: 10%;
     width: 10%;
@@ -65,4 +65,9 @@
 }
 #set{
     width:100%;
+=======
+#content-welcome #welcome-scrollbar div .scroll-content{
+    height: 100px;
+    width: 200px;
+>>>>>>> parent of e8a446d... Added scrollbar:site/css/welcome.css
 }
