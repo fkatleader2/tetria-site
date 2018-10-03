@@ -2,6 +2,7 @@ var tetria = {
     modules: {},
     curPage: "welcome",
     debug: true,
+    curscroll: 1,
     /**
      * Call on page load.
      */
@@ -37,6 +38,7 @@ var tetria = {
             this.navbar.init();
             this.url.init();
             this.profbar.init();
+            this.welcome.init();
         },
 
         url: {
@@ -87,13 +89,14 @@ var tetria = {
         },
 
         welcome: {
-<<<<<<< HEAD
             incContent() {
-                $("#welcome-" + tetria.curscroll).addClass("scroll-hide");
+                console.log("Triggered");
+                $("#welcome-" + tetria.curscroll) .addClass("scroll-hide");
                 if(tetria.curscroll === 4){tetria.curscroll = 1}else{tetria.curscroll++};
                 $("#welcome-" + tetria.curscroll).removeClass("scroll-hide");
             },
             decContent() {
+                console.log("Triggered");
                 $("#welcome-" + tetria.curscroll).addClass("scroll-hide");
                 if(tetria.curscroll === 1){tetria.curscroll = 4}else{tetria.curscroll--};
                 $("#welcome-" + tetria.curscroll).removeClass("scroll-hide");
@@ -101,10 +104,6 @@ var tetria = {
             init() {
                 $("#scroll-left").click(this.decContent);
                 $("#scroll-right").click(this.incContent);
-=======
-            init(){
-                
->>>>>>> parent of e8a446d... Added scrollbar
             }
         },
     },
