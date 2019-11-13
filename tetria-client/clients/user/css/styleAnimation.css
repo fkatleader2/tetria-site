@@ -1,0 +1,26 @@
+
+
+#content>.center>div:not(.hidden) {
+    /* animation-name: fadeIn;
+    animation-duration: 3s; */
+}
+
+#content>.center>div.hidden {
+    /* animation-name: fadeIn;
+    animation-direction: reverse;
+    animation-duration: 3s; */
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+#focus-blind.hidden {
+    pointer-events: none;
+}
+
+#focus-blind {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}

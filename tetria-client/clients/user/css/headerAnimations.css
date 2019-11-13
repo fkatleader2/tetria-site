@@ -1,0 +1,10 @@
+#header .center .selected .highlight {
+    animation-name: headerSelect;
+    animation-duration: 1s;
+}
+
+@keyframes headerSelect {
+    0% {opacity: 0}
+    5% {opacity: 0}
+    100% {opacity: 1}
+}

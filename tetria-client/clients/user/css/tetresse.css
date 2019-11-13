@@ -1,0 +1,67 @@
+.svgGraphics .tile, .svgGraphics .piece rect {
+    box-sizing:border-box;
+    stroke:#ffffff10;
+    stroke-width:.25;
+}
+
+.svgGraphics .i, .svgGraphics .i rect {
+    fill: hsl(196, 89%, 57%);
+}
+.svgGraphics .j, .svgGraphics .j rect {
+    fill: hsl(231, 69%, 45%);
+}
+.svgGraphics .l, .svgGraphics .l rect {
+    fill: hsl(24, 98%, 44%);
+}
+.svgGraphics .o, .svgGraphics .o rect {
+    fill: hsl(42, 97%, 45%);
+}
+.svgGraphics .s, .svgGraphics .s rect {
+    fill: hsl(92, 91%, 37%);
+}
+.svgGraphics .t, .svgGraphics .t rect {
+    fill: hsl(314, 63%, 41%);
+}
+.svgGraphics .z, .svgGraphics .z rect {
+    fill: hsl(348, 86%, 45%);
+}
+.svgGraphics .g, .svgGraphics .g rect {
+    fill: grey;
+}
+
+.svgGraphics .blank, .svgGraphics .blank rect {
+    fill: black;
+}
+
+.svgGraphics .ghost, .svgGraphics .ghost rect {
+    fill: #3e3e3e;
+}
+
+.svgGraphics .none, .svgGraphics .none rect {
+    fill: #00000000;
+}
+
+.svgGraphics .background {
+    fill: black;
+}
+
+.svgGraphics .border {
+    fill: grey;
+}
+
+.svgGraphics .incoming {
+    fill: red;
+}
+
+.svgGraphics .focus>.fill-area {
+    fill: #ffffff80;
+}
+
+.svgGraphics .focus>.click-area {
+    fill: #ffffff00;
+}
+
+.svgGraphics .focus>.click-area:hover {
+    cursor: pointer;
+    fill: #ffffff20;
+}

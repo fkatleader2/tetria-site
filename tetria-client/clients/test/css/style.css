@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+}
+
+canvas {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+}
+
+body>div {
+    background: #0000ff1a;
+}
+
+.canvas-container {
+    display: none;
+    width: 50%;
+    height: 50%;
+    background: red;
+}
+
+canvas {
+    background: #ffa50069;
+}
+
+.graph-area {
+    width: 400;
+    height: 400;
+    margin: auto;
+}
+
+svg {
+    width: inherit;
+    height: inherit;
+}

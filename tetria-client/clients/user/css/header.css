@@ -1,0 +1,189 @@
+body {
+    margin: 0px;
+    --orange: #FF6C00;
+    --orange-rgb: 255,108,0;
+    --purple: #38103A;
+    --blue: #282D4F;
+    --blue-rgb: 40,45,79;
+    --blue-dodge: #2f3873;
+    --dark-blue: #23103A;
+    --dark-blue-rgb: 35,16,58;
+    --grey-line: #FFFFFF88;
+    --grey: #E0E0E0;
+    --white: #FFFFFF;
+    --white-rgb: 255,255,255;
+    --content-width: 1000px;
+    display: grid;
+    grid-template-columns: auto var(--content-width) auto;
+    grid-template-rows: min-content auto;
+    height: 100%;
+
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    user-select: none;
+}
+
+body>div {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+#header-bg {
+    grid-row: 1;
+    grid-column: 1 / 4;
+    background: var(--dark-blue);
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+#header {
+    z-index: 2;
+    grid-row: 1;
+
+    position: relative;
+    text-align: center;
+    color: white;
+    background: var(--dark-blue);
+    user-select: none;
+
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    grid-template-rows: 75px;
+
+    font-size: 35px;
+    line-height: 40px;
+
+    border-bottom: 1px solid var(--grey-line);
+}
+
+#header div {
+    display: inline-block;
+}
+
+#header>div {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#header>div.left {
+    grid-column: 1;
+}
+
+#header>div.right {
+    grid-column: 3;
+}
+
+#header .center {
+    display: grid;
+    /* add new headers here */
+    grid-template-columns: auto min-content min-content min-content min-content min-content auto;
+    grid-template-rows: 100%;
+}
+
+#header .tetria-logo {
+    display: grid;
+    grid-template-rows: auto min-content auto;
+}
+
+#header .tetria-logo img {
+    grid-row: 2;
+    height: 50%;
+}
+
+#header .right {
+    display: grid;
+    grid-template-rows: auto min-content auto;
+}
+
+#header .right>div {
+    grid-row: 2;
+}
+
+#header-username {
+    font-size: 23;
+    background: var(--blue);
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+#header .center>div {
+    grid-row: 1;
+}
+
+#header .center>div {
+    display: inline-grid;
+
+    height: 100%;
+
+    grid-template-columns: auto;
+    grid-template-rows: min-content auto min-content;
+
+    align-items: center;
+}
+
+#header .center .option:hover {
+    cursor: pointer;
+}
+
+#header .center .label {
+    grid-row: 2;
+    padding: 0 20px;
+}
+
+#header .center .selected .label {
+    color: var(--orange);
+}
+
+#header .center .highlight {
+    display: none;
+    background: radial-gradient(farthest-side at 50.31% 0%, rgba(255, 108, 0, 0.58) 0%, rgba(255, 108, 0, 0) 100%);
+    height: 13px;
+}
+
+#header .center .selected .highlight {
+    display: block;
+}
+
+#header .center .top {
+    grid-row: 1;
+}
+
+#header .center .bot {
+    grid-row: 3;
+}
+
+#header .center .highlight.bot {
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+#header .center .vertical-line {
+    grid-row: 2;
+    height: 50px;
+    margin: 0 10px;
+}
+
+.vertical-line {
+    display: inline-block;
+    width: 1px;
+    height: inherit;
+    background: grey;
+}
+
+.hidden {
+    display: none !important;
+    /* visibility: hidden; */
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+img.icon {
+    height: 50px;
+    border-radius: 50%;
+}
+
+img.icon.small {
+    height: 25px;
+}

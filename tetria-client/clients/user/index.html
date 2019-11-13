@@ -1,0 +1,370 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+
+    <script type="text/javascript" src="../../tet.js"></script>
+    <script type="text/javascript" src = "../../modules/IdManager.js"></script>
+    <script type="text/javascript" src = "../../modules/LabelTree.js"></script>
+    <script type="text/javascript" src = "../../modules/ActionManager.js"></script>
+    <script type="text/javascript" src = "../../modules/ListenerManager.js"></script>
+    <script type="text/javascript" src = "../../modules/TetresseManager.js"></script>
+    <script type="text/javascript" src = "../../modules/tetresseModes/DefaultTetresse.js"></script>
+    <script type="text/javascript" src = "../../modules/tetresseModes/tetresseTetresse.js"></script>
+    <script type="text/javascript" src = "../../modules/tetresseModes/gravity.js"></script>
+
+    <script type="text/javascript" src="modules/singleplayer.js"></script>
+    <script type="text/javascript" src="modules/settings.js"></script>
+    <script type="text/javascript" src="modules/tmpmaster.js"></script>
+    <script type="text/javascript" src="../../modules/seedrandom.min.js"></script>
+    <script type="text/javascript" src="../modules/jquery.js"></script>
+
+    <script type="text/javascript" src="../modules/svgGraphics.js"></script>
+    <script type="text/javascript" src="../modules/controls.js"></script>
+    <script type="text/javascript" src="../modules/uiManager.js"></script>
+    <!-- <script type="text/javascript" src="../modules/graphics.js"></script> -->
+    <!-- <script type="text/javascript" src="../modules/layout.js"></script> -->
+    <!-- <script type="text/javascript" src="../modules/iconify.js"></script> -->
+    <!-- <script type="text/javascript" src="../../modules/tetresse.js"></script> -->
+
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/headerAnimations.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/styleAnimation.css">
+    <link rel="stylesheet" type="text/css" href="css/tetresse.css">
+</head>
+<body onload="">
+    <div id="focus-blind" class="hidden"></div>
+    <div id="header-bg"></div>
+    <div id="header" class="hidden">
+        <div class="tetria-logo left">
+            <img src="../../../static/imgs/tetria tmp logo.png">
+        </div>
+        <div class="center">
+            <div></div>
+            <div class="option">
+                <div class="highlight top"></div>
+                <div class="label">Rooms</div>
+                <div class="highlight bot"></div>
+            </div>
+            <div class="line"><div class="vertical-line">&nbsp;</div></div>
+            <div class="selected option">
+                <div class="highlight top"></div>
+                <div class="label">Game</div>
+                <div class="highlight bot"></div>
+            </div>
+            <div class="line"><div class="vertical-line">&nbsp;</div></div>
+            <div class="option">
+                <div class="highlight top"></div>
+                <div class="label">Help</div>
+                <div class="highlight bot"></div>
+            </div>
+        </div>
+        <div class="right">
+            <div id="header-username">
+                username
+            </div>
+        </div>
+    </div>
+    <div id="content" class="hidden">
+        <div class="center">
+            <div id="rooms" class="hidden">
+                <div>
+                    <div class="button">
+                        <div class="selected">CREATE</div>
+                        <div>PLAY NOW</div>
+                    </div>
+                    <div>
+                        <div class="create-game hidden">
+                            <div class="left-column">
+                                <div>
+                                    <div class="label">Room Name</div>
+                                    <div class="text-entry unedited" contenteditable="true">Type here...</div>
+                                </div>
+                                <div class="hidden">
+                                    <div class="label">Number of Players</div>
+                                    <div class="bubbles">
+                                        <div>1</div>
+                                        <div>2</div>
+                                        <div>3</div>
+                                        <div class="selected">4</div>
+                                        <div>5</div>
+                                        <div>6</div>
+                                    </div>
+                                </div>
+                                <div class="hidden">
+                                    <div class="label">Set Elo Restriction</div>
+                                    <div class="slider"></div>
+                                </div>            
+                            </div>
+                            <div class="right-column">
+                                <div class="header">More Settings</div>
+                                <div class="toggle">
+                                    <div class="selected">Room</div>
+                                    <div>Game</div>
+                                </div>
+                                <div class="room flags">
+                                    <div class="label">Allow Spectators</div>
+                                    <div class="selected"></div>
+                                    <div class="label">Limit Chat</div>
+                                    <div></div>
+                                    <div class="label">Invite Only</div>
+                                    <div></div>
+                                </div>
+                                <div class="game flags hidden">
+                                    <div class="label">Items</div>
+                                    <div></div>
+                                    <div class="label">Garbage</div>
+                                    <div></div>
+                                    <div class="label">Beginner Mode</div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="close">x</div>
+                            <div class="bottom">
+                                <div class="advanced hidden">Advanced Settings</div>
+                                <div class="button">Create</div>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <div class="button selected">ALL <span>| 9</span></div>
+                            <div class="button">CASUAL <span>| 8</span></div>
+                            <div class="button">RANKED <span>| 10</span></div>
+                            <div class="button expandable">+</div>
+                            <div class="dropdown right">
+                                <div class="selected">Sort by: Featured</div>
+                                <div>Sort by: Number of Players (low-high)</div>
+                                <div>Sort by: Number of Players (high-low)</div>
+                                <div>Sort by: Number of Spectators (low-high)</div>
+                                <div>Sort by: Number of Spectators (high-low)</div>
+                            </div>
+                        </div>
+                        <div class="rooms">
+                            <div>
+                                <div class="icon">
+                                    <img class="icon" src="../../../static/imgs/tf icon.png">
+                                </div>
+                                <div class="name">Room name</div>
+                                <div class="buttons">
+                                    <div class="button">Join</div>
+                                    <div class="button">Spectate</div>
+                                </div>
+                                <div class="players">
+                                    <div class="selected"></div>
+                                    <div class="selected"></div>
+                                    <div class="selected"></div>
+                                    <div class="selected"></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div class="time-spectators">
+                                    <div class="time">
+                                        <span class="icon"><span class="iconify" data-icon="ant-design:clock-circle-outline"></span></span>
+                                        <span class="label">3:21</span>
+                                    </div>
+                                    <div class="spectators">
+                                        <span class="icon"></span><span class="iconify" data-icon="bytesize-eye"></span></span>
+                                        <span class="label">7</span>
+                                    </div>                
+                                </div>
+                            </div>
+                            <div>room2</div>
+                            <div>room3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="game-multiplayer" class="hidden">
+                <div class="header">
+                    <div class="profile">
+                        <div class="icon">icon</div>
+                        <div class="name">Room Name</div>
+                        <div class="subtext">subtext</div>
+                    </div>
+                    <div class="overlay">
+                        <div class="timer">
+                            <div class="hours">
+                                <div class="number">00</div>
+                                <div class="label">HOURS</div>
+                            </div>
+                            <div class="minutes">
+                                <div class="number">10</div>
+                                <div class="label">MINUTES</div>
+                            </div>
+                            <div class="seconds">
+                                <div class="number">45</div>
+                                <div class="label">SECONDS</div>
+                            </div>
+                        </div>
+                        <div class="status">NEXT ROUND - 20 SEC</div>
+                    </div>
+                    <div class="settings">
+                        <div class="label">TEAMS</div>
+                        <div class="icon">n</div>
+                        <div class="label">ITEMS</div>
+                        <div class="icon">n</div>
+                        <div class="label">LCD</div>
+                        <div class="icon">n</div>
+                        <div class="label">SPINS</div>
+                        <div class="icon">y</div>
+                    </div>
+                </div>
+                <div class="right-column">
+                    chat
+                </div>
+                <div class="boards">
+                    <div class="tetresse playable"></div>
+                    <div class="tetresse"></div>
+                    <div class="tetresse"></div>
+                    <div class="tetresse"></div>
+                    <div class="tetresse"></div>
+                    <div class="tetresse"></div>
+                </div>
+            </div>
+            <div id="game-singleplayer" class="hidden">
+                <div>
+                    <div class="tetresse default-size">
+                        <!-- <img src="../../../static/imgs/tetresse/board.svg"> -->
+                    </div>
+                    <div class="stats">
+                        <div class="time">00:00.000</div>
+                        <div>
+                            <div class="label">APM</div>
+                            <div class="value">6.859</div>
+                        </div>
+                        <div>
+                            <div class="label">Lines Cleared</div>
+                            <div class="value">142</div>
+                        </div>
+                    </div>
+                    <div class="settings button">Settings</div>
+                    <div class="gamemode">
+                        <div class="label">Game Mode:</div>
+                        <div class="dropdown-container">
+                            <div class="dropdown button">
+                                <div class="selected">tetresse</div>
+                                <div>sprint</div>
+                                <div>marathon</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="settings-popup" class="">
+                <div class="center-content controls">
+                    <div class="section">
+                        <div class="heading">Control Settings</div>
+                        <div class="left-right"><div class="label">Buffer keys</div><div class="toggle-button enabled"></div></div>
+                        <div class="left-right"><div class="label">One-key controls</div><div class="toggle-button"></div></div>
+                        <div class="left-right">
+                            <div class="label">DAS</div>
+                            <div class="edit-bar-toggle-button">
+                                <div class="bar">
+                                    <div class="label">0</div>
+                                    <div class="bar extension left"></div>
+                                    <div class="bar"></div>
+                                    <div class="selector"></div>
+                                    <!-- <div class="bar extension right"></div> -->
+                                    <div class="label">1s</div>
+                                </div>
+                                <div class="label">475ms</div>
+                                <div class="toggle-button enabled"></div>
+                            </div>
+                        </div>
+                        <div class="left-right">
+                            <div class="label">ARR</div>
+                            <div class="edit-bar-toggle-button uneditable">
+                                <div class="bar">
+                                    <div class="label">0</div>
+                                    <!-- <div class="bar extension left"></div> -->
+                                    <div class="bar"></div>
+                                    <div class="selector"></div>
+                                    <div class="bar extension right"></div>
+                                    <div class="label">475ms</div>
+                                </div>
+                                <div class="label">430ms</div>
+                                <div class="toggle-button"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="heading">Key Bindings</div>
+                        <div class="description">Hover an action to show description and reset/remove buttons.<br>Click an action to bind a key.</div>
+                        <div class="scroll-area">
+                            <div>
+                                <div class="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512"><path d="M448 440a16 16 0 0 1-12.61-6.15c-22.86-29.27-44.07-51.86-73.32-67C335 352.88 301 345.59 256 344.23V424a16 16 0 0 1-27 11.57l-176-168a16 16 0 0 1 0-23.14l176-168A16 16 0 0 1 256 88v80.36c74.14 3.41 129.38 30.91 164.35 81.87C449.32 292.44 464 350.9 464 424a16 16 0 0 1-16 16z"/></svg>
+                                </div>
+                                <div class="left-right">
+                                    <div class="label">Rotate CW</div>
+                                    <div class="label">up arrow</div>
+                                    <div class="hover-text">
+                                        <div class="section">Rotate Clockwise: <span class="grey">Rotate the current piece in the clockwise direction.</span></div>
+                                        <div class="section">Key: “up arrow”<span class="grey">- Code 87, activates on press.</span></div>
+                                    </div>
+                                </div>
+                                <div class="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path d="M22.238 18.004l9.883-9.883a3 3 0 1 0-4.242-4.243l-9.883 9.883l-9.883-9.882A3 3 0 1 0 3.87 8.122l9.883 9.882l-9.907 9.907a3 3 0 0 0 4.243 4.242l9.906-9.906l9.882 9.882c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242l-9.881-9.883z"/></svg>
+                                </div>
+                            </div>
+                            <div class="indented">
+                                <div class="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512"><path d="M448 440a16 16 0 0 1-12.61-6.15c-22.86-29.27-44.07-51.86-73.32-67C335 352.88 301 345.59 256 344.23V424a16 16 0 0 1-27 11.57l-176-168a16 16 0 0 1 0-23.14l176-168A16 16 0 0 1 256 88v80.36c74.14 3.41 129.38 30.91 164.35 81.87C449.32 292.44 464 350.9 464 424a16 16 0 0 1-16 16z"/></svg>
+                                </div>
+                                <div class="left-right">
+                                    <div class="label">Rotate CW</div>
+                                    <div class="label">x</div>
+                                    <div class="hover-text">
+                                        <div class="section">Rotate Clockwise: <span class="grey">Rotate the current piece in the clockwise direction.</span></div>
+                                        <div class="section">Key: “x”<span class="grey">- Code 87, activates on press.</span></div>
+                                    </div>    
+                                </div>
+                                <div class="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path d="M22.238 18.004l9.883-9.883a3 3 0 1 0-4.242-4.243l-9.883 9.883l-9.883-9.882A3 3 0 1 0 3.87 8.122l9.883 9.882l-9.907 9.907a3 3 0 0 0 4.243 4.242l9.906-9.906l9.882 9.882c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242l-9.881-9.883z"/></svg>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512"><path d="M448 440a16 16 0 0 1-12.61-6.15c-22.86-29.27-44.07-51.86-73.32-67C335 352.88 301 345.59 256 344.23V424a16 16 0 0 1-27 11.57l-176-168a16 16 0 0 1 0-23.14l176-168A16 16 0 0 1 256 88v80.36c74.14 3.41 129.38 30.91 164.35 81.87C449.32 292.44 464 350.9 464 424a16 16 0 0 1-16 16z"/></svg>
+                                </div>
+                                <div class="left-right">
+                                    <div class="label">Move Left</div>
+                                    <div class="label">left arrow</div>
+                                </div>
+                                <div class="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path d="M22.238 18.004l9.883-9.883a3 3 0 1 0-4.242-4.243l-9.883 9.883l-9.883-9.882A3 3 0 1 0 3.87 8.122l9.883 9.882l-9.907 9.907a3 3 0 0 0 4.243 4.242l9.906-9.906l9.882 9.882c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242l-9.881-9.883z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        reset, apply
+                    </div>
+                </div>
+                <div class="right-content">
+                    right
+                </div>
+                <div class="left-bar">
+                    <div class="header">SETTINGS</div>
+                    <div class="list">
+                        <div>General</div>
+                        <div class="selected">Controls</div>
+                        <div>Graphics</div>
+                        <div>Sounds</div>
+                        <div class="group open">
+                            <div class="label">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M14.547 5.621l6.095 9.794A3 3 0 0 1 18.095 20H5.905a3 3 0 0 1-2.547-4.585L9.453 5.62a3 3 0 0 1 5.094 0z"/></svg>
+                                SINGLEPLAYER</div>
+                            <div class="list">
+                                <div>Infinity</div>
+                                <div>Sprint</div>
+                                <div>Tetresse</div>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="help" class="hidden">
+                help
+            </div>
+        </div>
+    </div>
+</body>
